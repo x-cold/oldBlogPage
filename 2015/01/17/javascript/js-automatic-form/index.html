@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>js自动化处理表单 | 小冷的备忘录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我们在浏览网页时偶尔会碰到一些需要重复选择各种选项的尴尬局面，我们希望可以有一种工具可以帮助我们自动完成填表或者选择选卡项目。
+实现原理【需要对html有一知半解】调用浏览器的控制台运行js脚本，从而达到自动填写表单和选择勾选项，以及自动提交等功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js自动化处理表单">
+<meta property="og:url" content="http://blog.lxstart.net/2015/01/17/javascript/js-automatic-form/index.html">
+<meta property="og:site_name" content="小冷的备忘录">
+<meta property="og:description" content="我们在浏览网页时偶尔会碰到一些需要重复选择各种选项的尴尬局面，我们希望可以有一种工具可以帮助我们自动完成填表或者选择选卡项目。
+实现原理【需要对html有一知半解】调用浏览器的控制台运行js脚本，从而达到自动填写表单和选择勾选项，以及自动提交等功能。">
+<meta property="og:updated_time" content="2016-06-30T02:19:32.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js自动化处理表单">
+<meta name="twitter:description" content="我们在浏览网页时偶尔会碰到一些需要重复选择各种选项的尴尬局面，我们希望可以有一种工具可以帮助我们自动完成填表或者选择选卡项目。
+实现原理【需要对html有一知半解】调用浏览器的控制台运行js脚本，从而达到自动填写表单和选择勾选项，以及自动提交等功能。">
+  
+    <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小冷</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						<!--  -->
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">我的主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+					</div>
+				</section>
+				
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.scaujiwei.com/">计算机维护队</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">小冷</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小冷</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-javascript/js-automatic-form" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/17/javascript/js-automatic-form/" class="article-date">
+  	<time datetime="2015-01-16T16:00:00.000Z" itemprop="datePublished">2015-01-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js自动化处理表单
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/javascript/">javascript</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们在浏览网页时偶尔会碰到一些需要重复选择各种选项的尴尬局面，我们希望可以有一种工具可以帮助我们自动完成填表或者选择选卡项目。</p>
+<h3 id="实现原理【需要对html有一知半解】"><a href="#实现原理【需要对html有一知半解】" class="headerlink" title="实现原理【需要对html有一知半解】"></a>实现原理【需要对html有一知半解】</h3><p>调用浏览器的控制台运行js脚本，从而达到自动填写表单和选择勾选项，以及自动提交等功能。</p>
+<a id="more"></a>
+<h3 id="实现方法（例子）"><a href="#实现方法（例子）" class="headerlink" title="实现方法（例子）"></a>实现方法（例子）</h3><ul>
+<li>获取到表单元素，首先需要浏览到你需要操作的网页，通过浏览器的审查元素或者查看源代码可以获取到按钮/选项/输入框在文档中的位置。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取表单对象</span></div><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'form'</span>)[<span class="number">0</span>];</div><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'btn1'</span>);</div><div class="line"><span class="comment">//获取选项列表</span></div><div class="line"><span class="keyword">var</span> selList = form.getElementsByTagName(<span class="string">'select'</span>);</div><div class="line"><span class="keyword">var</span> username = <span class="built_in">document</span>.getElementById(<span class="string">'username'</span>);</div><div class="line"><span class="keyword">var</span> password = <span class="built_in">document</span>.getElementById(<span class="string">'password'</span>);</div></pre></td></tr></table></figure>
+<!--more-->
+<ul>
+<li>利用js进行自动选择选项和提交功能。(自动填表也可以如法炮制)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//遍历，填写选项</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = selList.length; i &lt; len; i++) &#123;</div><div class="line">	selList[i].options[<span class="number">1</span>].selected = <span class="string">'selected'</span>;</div><div class="line">	<span class="keyword">if</span> (<span class="number">1</span> == i) &#123;</div><div class="line">		selList[i].options[<span class="number">2</span>].selected = <span class="string">'selected'</span>;</div><div class="line">	&#125;;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//自动填表</span></div><div class="line">username.value = <span class="string">'test'</span>;</div><div class="line">password.value = <span class="string">'test'</span>;</div><div class="line"><span class="comment">//自动点击按钮</span></div><div class="line">btn.click();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>需要对html有基本的了解，才能快速地通过审查元素找到需要操作的DOM对象</li>
+<li><p>在一些带有iframe框架的网页，可以使用下面这条js语句获取iframe</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> frame = <span class="built_in">window</span>.frames[<span class="string">"zhuti"</span>].document.getElementById(<span class="string">'divJs'</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>在demo网页上通过浏览器控制台运行可以的显示效果</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> <span class="title">juadge</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">	<span class="comment">//获取表单对象</span></div><div class="line">	<span class="keyword">var</span> form = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'form'</span>)[<span class="number">0</span>];</div><div class="line">	<span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'btn1'</span>);</div><div class="line">	<span class="comment">//获取选项列表</span></div><div class="line">	<span class="keyword">var</span> selList = form.getElementsByTagName(<span class="string">'select'</span>);</div><div class="line">	<span class="keyword">var</span> username = <span class="built_in">document</span>.getElementById(<span class="string">'username'</span>);</div><div class="line">	<span class="keyword">var</span> password = <span class="built_in">document</span>.getElementById(<span class="string">'password'</span>);</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (<span class="number">1</span> == num) &#123;</div><div class="line">	   <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = selList.length; i &lt; len; i++) &#123;</div><div class="line">	   		<span class="comment">//下标i为第i个选项，后面的下标1则是需要选取第几个选项</span></div><div class="line">	    	selList[i].options[<span class="number">1</span>].selected = <span class="string">'selected'</span>;</div><div class="line">	   &#125;</div><div class="line"></div><div class="line">	   <span class="comment">//自动填表，设置用户名和密码</span></div><div class="line">	   username.value = <span class="string">'test'</span>;</div><div class="line">	   password.value = <span class="string">'test'</span>;</div><div class="line"></div><div class="line">	   <span class="comment">//自动点击按钮提交</span></div><div class="line">	   btn.click();</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">	   <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = selList.length; i &lt; len; i++) &#123;</div><div class="line">	      selList[i].options[<span class="number">0</span>].selected = <span class="string">'selected'</span>;</div><div class="line">	   &#125;</div><div class="line">	   username.value = <span class="string">""</span>;</div><div class="line">	   password.value = <span class="string">""</span>;</div><div class="line">	&#125;</div><div class="line">&#125;)(num);</div><div class="line"><span class="comment">//num填写1为自动处理</span></div><div class="line"><span class="comment">//num填写0为清除表单</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a class="btn" href="http://7u2liq.com1.z0.glb.clouddn.com/blog/demo/js自动处理表单/" target="_blank" rel="external">查看demo</a></p>
+<p>###下面是demo的源代码<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">title</span>&gt;</span>js自动处理表单<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></div><div class="line">      <span class="comment">&lt;!-- 引入 Bootstrap --&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></div><div class="line"></div><div class="line">      <span class="comment">&lt;!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 --&gt;</span></div><div class="line">      <span class="comment">&lt;!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 --&gt;</span></div><div class="line">      <span class="comment">&lt;!--[if lt IE 9]&gt;</span></div><div class="line">         &lt;script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"&gt;&lt;/script&gt;</div><div class="line">         &lt;script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"&gt;&lt;/script&gt;</div><div class="line">      &lt;![endif]--&gt;</div><div class="line">   <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">h1</span>&gt;</span>js自动处理表单<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">form</span> <span class="attr">role</span>=<span class="string">"form"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">p</span>&gt;</span>选项1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">select</span> <span class="attr">class</span>=<span class="string">"form-control input-sm"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>默认选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">               <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">p</span>&gt;</span>选项2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">select</span> <span class="attr">class</span>=<span class="string">"form-control input-sm"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>默认选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">               <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">p</span>&gt;</span>选项3<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">select</span> <span class="attr">class</span>=<span class="string">"form-control input-sm"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>默认选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">               <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">p</span>&gt;</span>选项4<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">select</span> <span class="attr">class</span>=<span class="string">"form-control input-sm"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>默认选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">               <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">p</span>&gt;</span>选项5<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">select</span> <span class="attr">class</span>=<span class="string">"form-control input-sm"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>默认选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">               <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"firstname"</span> <span class="attr">class</span>=<span class="string">"col-sm-1 control-label"</span>&gt;</span>用户名:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-sm-11"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"username"</span></span></div><div class="line">                     <span class="attr">placeholder</span>=<span class="string">"请输入用户名"</span>&gt;</div><div class="line">               <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span>&amp;nbsp;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"lastname"</span> <span class="attr">class</span>=<span class="string">"col-sm-1 control-label"</span>&gt;</span>密码：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-sm-11"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"password"</span> <span class="attr">placeholder</span>=<span class="string">"请输入密码"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span>&amp;nbsp;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span> <span class="attr">id</span>=<span class="string">"btn1"</span> <span class="attr">onclick</span>=<span class="string">"javascript:sub()"</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span> <span class="attr">id</span>=<span class="string">"btn2"</span> <span class="attr">onclick</span>=<span class="string">"javascript:juadge(1)"</span>&gt;</span>自动填表<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-warning"</span> <span class="attr">id</span>=<span class="string">"btn3"</span> <span class="attr">onclick</span>=<span class="string">"javascript:juadge(0)"</span>&gt;</span>恢复默认<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">         <span class="function"><span class="keyword">function</span> <span class="title">sub</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            alert(<span class="string">"Submit"</span>);</div><div class="line">         &#125;</div><div class="line"></div><div class="line">         <span class="function"><span class="keyword">function</span> <span class="title">juadge</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">            <span class="comment">//获取表单对象</span></div><div class="line">            <span class="keyword">var</span> form = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'form'</span>)[<span class="number">0</span>];</div><div class="line">            <span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'btn1'</span>);</div><div class="line">            <span class="comment">//获取选项列表</span></div><div class="line">            <span class="keyword">var</span> selList = form.getElementsByTagName(<span class="string">'select'</span>);</div><div class="line">            <span class="keyword">var</span> username = <span class="built_in">document</span>.getElementById(<span class="string">'username'</span>);</div><div class="line">            <span class="keyword">var</span> password = <span class="built_in">document</span>.getElementById(<span class="string">'password'</span>);</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (<span class="number">1</span> == num) &#123;</div><div class="line">               <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = selList.length; i &lt; len; i++) &#123;</div><div class="line">                  selList[i].options[<span class="number">1</span>].selected = <span class="string">'selected'</span>;</div><div class="line">                  <span class="keyword">if</span> (<span class="number">1</span> == i) &#123;</div><div class="line">                     selList[i].options[<span class="number">2</span>].selected = <span class="string">'selected'</span>;</div><div class="line">                  &#125;;</div><div class="line">               &#125;</div><div class="line"></div><div class="line">               <span class="comment">//自动填表</span></div><div class="line">               username.value = <span class="string">"test"</span>;</div><div class="line">               password.value = <span class="string">"test"</span>;</div><div class="line">               <span class="comment">//自动点击按钮</span></div><div class="line">               btn.click();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">               <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = selList.length; i &lt; len; i++) &#123;</div><div class="line">                  selList[i].options[<span class="number">0</span>].selected = <span class="string">'selected'</span>;</div><div class="line">               &#125;</div><div class="line">               username.value = <span class="string">""</span>;</div><div class="line">               password.value = <span class="string">""</span>;</div><div class="line">            &#125;</div><div class="line">         &#125;;</div><div class="line"></div><div class="line">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/18/batch/bat-batch-rename-files/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          批处理实现批量文件重命名
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/16/linux/terminal-task-front-and-back/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Terminal前后端任务切换</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style" style="margin-left: 2em">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a>
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="javascript/js-automatic-form" data-title="js自动化处理表单" data-url="http://blog.lxstart.net/2015/01/17/javascript/js-automatic-form/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"x-cold"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小冷
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

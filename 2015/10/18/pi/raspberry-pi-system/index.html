@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>树莓派NAS搭建[1] | 小冷的备忘录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="初探树莓派，便可知道其用途广泛，本篇博文将介绍如何使用树莓派搭建基于Linux和SMB协议的NAS服务器。
+树莓派简介树莓派（Raspberry pi，简写为RPi，或者RasPi/RPi）是目前比较常见的卡片电脑，为学生计算机编程教育而设计。其系统基于Linux(或者最新发布的Windows 10 IoT)。仅有巴掌大小的PCB板可谓麻雀虽小五脏俱全，可以像普通的PC那样工作。树莓派型号目前分为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派NAS搭建[1]">
+<meta property="og:url" content="http://blog.lxstart.net/2015/10/18/pi/raspberry-pi-system/index.html">
+<meta property="og:site_name" content="小冷的备忘录">
+<meta property="og:description" content="初探树莓派，便可知道其用途广泛，本篇博文将介绍如何使用树莓派搭建基于Linux和SMB协议的NAS服务器。
+树莓派简介树莓派（Raspberry pi，简写为RPi，或者RasPi/RPi）是目前比较常见的卡片电脑，为学生计算机编程教育而设计。其系统基于Linux(或者最新发布的Windows 10 IoT)。仅有巴掌大小的PCB板可谓麻雀虽小五脏俱全，可以像普通的PC那样工作。树莓派型号目前分为">
+<meta property="og:updated_time" content="2016-06-30T02:19:32.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派NAS搭建[1]">
+<meta name="twitter:description" content="初探树莓派，便可知道其用途广泛，本篇博文将介绍如何使用树莓派搭建基于Linux和SMB协议的NAS服务器。
+树莓派简介树莓派（Raspberry pi，简写为RPi，或者RasPi/RPi）是目前比较常见的卡片电脑，为学生计算机编程教育而设计。其系统基于Linux(或者最新发布的Windows 10 IoT)。仅有巴掌大小的PCB板可谓麻雀虽小五脏俱全，可以像普通的PC那样工作。树莓派型号目前分为">
+  
+    <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小冷</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						<!--  -->
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">我的主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+					</div>
+				</section>
+				
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.scaujiwei.com/">计算机维护队</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">小冷</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小冷</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-pi/raspberry-pi-system" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/18/pi/raspberry-pi-system/" class="article-date">
+  	<time datetime="2015-10-18T11:25:42.000Z" itemprop="datePublished">2015-10-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      树莓派NAS搭建[1]
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NAS/">NAS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/linux/">linux</a><a class="article-category-link" href="/categories/linux/树莓派/">树莓派</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>初探树莓派，便可知道其用途广泛，本篇博文将介绍如何使用树莓派搭建基于Linux和SMB协议的NAS服务器。</p>
+<h3 id="树莓派简介"><a href="#树莓派简介" class="headerlink" title="树莓派简介"></a>树莓派简介</h3><p>树莓派（Raspberry pi，简写为RPi，或者RasPi/RPi）是目前比较常见的卡片电脑，为学生计算机编程教育而设计。其系统基于Linux(或者最新发布的Windows 10 IoT)。仅有巴掌大小的PCB板可谓麻雀虽小五脏俱全，可以像普通的PC那样工作。树莓派型号目前分为A\B型，其中A型的配置较低，不适合生产环境，本人以B+ model为例讲解后面的内容。树莓派目前主要被用于一些简单的WEB服务以及智能设备、由于Python强大的底层库支持，树莓派也常常被用极客们用于改装各种电子元件。</p>
+<a id="more"></a>
+<p><em>基本配置：5V2A Micro USB接口、512MB内存、HDMI视频输出口、音频叔叔、26针GPIO</em></p>
+<p>推荐链接：<a href="http://www.shumeipai.net/thread-21180-1-1.html?_dsign=81e52e75" target="_blank" rel="external">树莓派入门须知</a></p>
+<h3 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h3><p>略。</p>
+<h3 id="入门基础"><a href="#入门基础" class="headerlink" title="入门基础"></a>入门基础</h3><p>首先，你必须学会使用简单的linux命令以及工具，从上面的系统安装教程我们可以了解到树莓派一般都会带上一个debian系列的linux系统。下面是常用的linux命令和工具：</p>
+<ul>
+<li><p>ssh：(Secure Shell)顾名思义，在缺少一套完整的键盘鼠标和HDMI显示器的条件下，我们只能通过SSH（当然其他RPC也是被支持的，如telnet，不过树莓派官方提供的系统已自动为我们启动ssh的服务）连接并操作树莓派。</p>
+</li>
+<li><p>简单的文件操作命令：<code>mkdir</code>,<code>rmdir</code>,<code>rm</code>,<code>cd</code>,<code>ls</code>,<code>cp</code>,<code>mv</code>等</p>
+</li>
+<li><p>终端文本编辑器：<code>vi</code>,<code>vim</code>等</p>
+</li>
+<li><p>基本的系统指令：<code>exit</code>,<code>reboot</code>,<code>init 0</code>,<code>ps</code>,<code>ifconfig</code>等</p>
+</li>
+<li><p>包管理（debian系统为例）：apt-get</p>
+</li>
+<li><p>如果需要远程桌面图形化操作，请安装VNC</p>
+</li>
+</ul>
+<h3 id="NAS大致构架简介"><a href="#NAS大致构架简介" class="headerlink" title="NAS大致构架简介"></a>NAS大致构架简介</h3><ul>
+<li>简介</li>
+</ul>
+<p>NAS（Network Attached Storage：网络附属存储）即是在网络上提供数据储存的装置，因此也称为“网络存储器”。它是一种专用数据存储服务器。它以数据为中心，将存储设备与服务器彻底分离，集中管理数据，从而释放带宽、提高性能、降低总拥有成本、保护投资。本次设计的NAS主要用于公司内文件共享以及定时备份到远端服务器。</p>
+<ul>
+<li><p>硬件架构</p>
+<ol>
+<li>树莓派B+*1</li>
+<li>立式硬盘盒子*1</li>
+<li>1TB HDD 3.5inch*1</li>
+</ol>
+</li>
+<li><p>软件和网络环境</p>
+<ol>
+<li>os：debian</li>
+<li>基于协议：SMB</li>
+<li>依赖服务：smaba</li>
+<li>基本模块：ntfs-3g、rsync、ssh、crontab</li>
+<li>网络环境：内网静态IP、可访问远端备份服务器</li>
+</ol>
+</li>
+</ul>
+<p><em>未完待续</em></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/25/hci/first-share-command/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          HCI第一次分享例会[命令行]
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/17/batch/batch-copy-lan/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">批处理实现机房文件批量传输</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style" style="margin-left: 2em">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a>
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="pi/raspberry-pi-system" data-title="树莓派NAS搭建[1]" data-url="http://blog.lxstart.net/2015/10/18/pi/raspberry-pi-system/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"x-cold"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小冷
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

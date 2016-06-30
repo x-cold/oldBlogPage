@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>imagex.exe花式装系统 | 小冷的备忘录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="imagex.exe简介imagex.exe是一款用来捕获、修改和应用基于文件的磁盘映像以进行快速部署。ImageX可以使用 Windows 映像 (.wim) 文件复制到网络，或者还可以使用其他利用 .wim 映像的技术，如 Windows 安装程序、Windows 部署服务 (Windows DS) 以及系统管理服务器 (SMS) 操作系统功能部署包。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="imagex.exe花式装系统">
+<meta property="og:url" content="http://blog.lxstart.net/2015/01/20/jiwei/imagex-install-os/index.html">
+<meta property="og:site_name" content="小冷的备忘录">
+<meta property="og:description" content="imagex.exe简介imagex.exe是一款用来捕获、修改和应用基于文件的磁盘映像以进行快速部署。ImageX可以使用 Windows 映像 (.wim) 文件复制到网络，或者还可以使用其他利用 .wim 映像的技术，如 Windows 安装程序、Windows 部署服务 (Windows DS) 以及系统管理服务器 (SMS) 操作系统功能部署包。">
+<meta property="og:updated_time" content="2016-06-30T02:19:32.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="imagex.exe花式装系统">
+<meta name="twitter:description" content="imagex.exe简介imagex.exe是一款用来捕获、修改和应用基于文件的磁盘映像以进行快速部署。ImageX可以使用 Windows 映像 (.wim) 文件复制到网络，或者还可以使用其他利用 .wim 映像的技术，如 Windows 安装程序、Windows 部署服务 (Windows DS) 以及系统管理服务器 (SMS) 操作系统功能部署包。">
+  
+    <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小冷</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						<!--  -->
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">我的主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+					</div>
+				</section>
+				
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.scaujiwei.com/">计算机维护队</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">小冷</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小冷</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-jiwei/imagex-install-os" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/20/jiwei/imagex-install-os/" class="article-date">
+  	<time datetime="2015-01-19T16:00:00.000Z" itemprop="datePublished">2015-01-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      imagex.exe花式装系统
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算机维护/">计算机维护</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/计算机维护/">计算机维护</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="imagex-exe简介"><a href="#imagex-exe简介" class="headerlink" title="imagex.exe简介"></a>imagex.exe简介</h3><p>imagex.exe是一款用来捕获、修改和应用基于文件的磁盘映像以进行快速部署。ImageX可以使用 Windows 映像 (.wim) 文件复制到网络，或者还可以使用其他利用 .wim 映像的技术，如 Windows 安装程序、Windows 部署服务 (Windows DS) 以及系统管理服务器 (SMS) 操作系统功能部署包。</p>
+<a id="more"></a>
+<h3 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">\&gt; imagex /<span class="built_in">help</span>		<span class="comment">#查看帮助文档</span></div><div class="line">ImageX Tool <span class="keyword">for</span> Windows</div><div class="line">Copyright (C) Microsoft Corp. All rights reserved.</div><div class="line">Version: 6.1.7600.16385</div><div class="line"></div><div class="line">IMAGEX [Flags] /Operation [Parameter List]</div><div class="line"></div><div class="line">  Operation [ APPEND  | APPLY   | CAPTURE | DELETE  |</div><div class="line">              DIR     | EXPORT  | INFO    | SPLIT   |</div><div class="line">              MOUNT   | MOUNTRW | REMOUNT | UNMOUNT |</div><div class="line">              CLEANUP | COMMIT ]</div><div class="line"></div><div class="line">For <span class="built_in">help</span> on a specific operation <span class="built_in">type</span>:</div><div class="line">  IMAGEX /Operation /?</div><div class="line"></div><div class="line">Examples:</div><div class="line">  IMAGEX /APPEND /?</div><div class="line">  IMAGEX /APPLY /?</div><div class="line">  IMAGEX /CAPTURE /?</div><div class="line">  IMAGEX /DELETE /?</div><div class="line">  IMAGEX /DIR /?</div><div class="line">  IMAGEX /EXPORT /?</div><div class="line">  IMAGEX /INFO /?</div><div class="line">  IMAGEX /SPLIT /?</div><div class="line">  IMAGEX /MOUNT /?</div><div class="line">  IMAGEX /MOUNTRW /?</div><div class="line">  IMAGEX /REMOUNT /?</div><div class="line">  IMAGEX /COMMIT /?</div><div class="line">  IMAGEX /UNMOUNT /?</div><div class="line">  IMAGEX /CLEANUP /?</div><div class="line"></div><div class="line">All operations accept the following flags:</div><div class="line">  /SCROLL</div><div class="line">  /LOGFILE logfile.log</div><div class="line">\&gt;</div></pre></td></tr></table></figure>
+<!--more-->
+<h3 id="安装系统需要使用的命令-这里采用wim镜像安装系统"><a href="#安装系统需要使用的命令-这里采用wim镜像安装系统" class="headerlink" title="安装系统需要使用的命令(这里采用wim镜像安装系统)"></a>安装系统需要使用的命令(这里采用wim镜像安装系统)</h3><ul>
+<li>检测wim镜像的完整性，并获取到wim镜像的系统版本系统：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">&gt; imagex /info install.wim		<span class="comment">#查看"install.wim"的相关信息</span></div><div class="line"></div><div class="line">ImageX Tool <span class="keyword">for</span> Windows</div><div class="line">Copyright (C) Microsoft Corp. All rights reserved.</div><div class="line">Version: 6.1.7600.16385</div><div class="line"></div><div class="line">WIM Information:</div><div class="line">----------------</div><div class="line">Path:        \Windows8.1\sources\install.wim</div><div class="line">GUID:        &#123;93bf56b4-8645-44b8<span class="_">-a</span>3d3-b96aa7f508df&#125;</div><div class="line"><span class="comment"># Image Count 是重要信息</span></div><div class="line">Image Count: 1</div><div class="line">Compression: LZX</div><div class="line">Part Number: 1/1</div><div class="line">Attributes:  0xc</div><div class="line">             Integrity info</div><div class="line">             Relative path junction</div><div class="line"></div><div class="line"></div><div class="line">Available Image Choices:</div><div class="line">------------------------</div><div class="line">&lt;WIM&gt;</div><div class="line">  &lt;TOTALBYTES&gt;3457099927&lt;/TOTALBYTES&gt;</div><div class="line">  &lt;IMAGE INDEX=<span class="string">"1"</span>&gt;</div><div class="line">    &lt;DIRCOUNT&gt;19524&lt;/DIRCOUNT&gt;</div><div class="line">    &lt;FILECOUNT&gt;92795&lt;/FILECOUNT&gt;</div><div class="line">    &lt;TOTALBYTES&gt;12855928858&lt;/TOTALBYTES&gt;</div><div class="line">    &lt;HARDLINKBYTES&gt;5346880387&lt;/HARDLINKBYTES&gt;</div><div class="line">    &lt;CREATIONTIME&gt;</div><div class="line">      &lt;HIGHPART&gt;0x01CF4298&lt;/HIGHPART&gt;</div><div class="line">      &lt;LOWPART&gt;0x37D85CC6&lt;/LOWPART&gt;</div><div class="line">    &lt;/CREATIONTIME&gt;</div><div class="line">    &lt;LASTMODIFICATIONTIME&gt;</div><div class="line">      &lt;HIGHPART&gt;0x01CF4298&lt;/HIGHPART&gt;</div><div class="line">      &lt;LOWPART&gt;0x74FBCEDF&lt;/LOWPART&gt;</div><div class="line">    &lt;/LASTMODIFICATIONTIME&gt;</div><div class="line">    &lt;WIMBOOT&gt;0&lt;/WIMBOOT&gt;</div><div class="line">    &lt;WINDOWS&gt;</div><div class="line">      &lt;ARCH&gt;9&lt;/ARCH&gt;</div><div class="line">      &lt;PRODUCTNAME&gt;Microsoft® Windows® Operating System&lt;/PRODUCTNAME&gt;</div><div class="line">      &lt;EDITIONID&gt;Professional&lt;/EDITIONID&gt;</div><div class="line">      &lt;INSTALLATIONTYPE&gt;Client&lt;/INSTALLATIONTYPE&gt;</div><div class="line">      &lt;SERVICINGDATA&gt;</div><div class="line">        &lt;GDRDUREVISION&gt;20140317&lt;/GDRDUREVISION&gt;</div><div class="line">        &lt;PKEYCONFIGVERSION&gt;6.3.9600.17031;2014-02-22T04:31:55Z&lt;/PKEYCONFIGVERSION&gt;</div><div class="line">      &lt;/SERVICINGDATA&gt;</div><div class="line">      &lt;HAL&gt;acpiapic&lt;/HAL&gt;</div><div class="line">      &lt;PRODUCTTYPE&gt;W<span class="keyword">in</span>NT&lt;/PRODUCTTYPE&gt;</div><div class="line">      &lt;PRODUCTSUITE&gt;Terminal Server&lt;/PRODUCTSUITE&gt;</div><div class="line">      &lt;LANGUAGES&gt;</div><div class="line">        &lt;LANGUAGE&gt;zh-CN&lt;/LANGUAGE&gt;</div><div class="line">        &lt;FALLBACK LANGUAGE=<span class="string">"zh-CN"</span>&gt;en-US&lt;/FALLBACK&gt;</div><div class="line">        &lt;DEFAULT&gt;zh-CN&lt;/DEFAULT&gt;</div><div class="line">      &lt;/LANGUAGES&gt;</div><div class="line">      &lt;VERSION&gt;</div><div class="line">        &lt;MAJOR&gt;6&lt;/MAJOR&gt;</div><div class="line">        &lt;MINOR&gt;3&lt;/MINOR&gt;</div><div class="line">        &lt;BUILD&gt;9600&lt;/BUILD&gt;</div><div class="line">        &lt;SPBUILD&gt;17031&lt;/SPBUILD&gt;</div><div class="line">        &lt;SPLEVEL&gt;0&lt;/SPLEVEL&gt;</div><div class="line">      &lt;/VERSION&gt;</div><div class="line">      &lt;SYSTEMROOT&gt;WINDOWS&lt;/SYSTEMROOT&gt;</div><div class="line">    &lt;/WINDOWS&gt;</div><div class="line">    &lt;NAME&gt;Windows 8.1 Pro&lt;/NAME&gt;</div><div class="line">    &lt;DESCRIPTION&gt;Windows 8.1 Pro&lt;/DESCRIPTION&gt;</div><div class="line">    &lt;FLAGS&gt;Professional&lt;/FLAGS&gt;</div><div class="line">    &lt;DISPLAYNAME&gt;Windows 8.1 专业版&lt;/DISPLAYNAME&gt;</div><div class="line">    &lt;DISPLAYDESCRIPTION&gt;Windows 8.1 专业版&lt;/DISPLAYDESCRIPTION&gt;</div><div class="line">  &lt;/IMAGE&gt;</div><div class="line">&lt;/WIM&gt;</div><div class="line"></div><div class="line">\&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>Image Count 即是该镜像包含的的系统各版本的计数，如旗舰版、专业版等。我们需要在后面的XML里面找到自己需要安装的系统版本对应的Count记录下来。</p>
+</li>
+<li><p>解压install.wim镜像内的系统文件到对应的路径，既是完成安装系统文件的过程。</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\&gt; imagex /apply install.wim 1 c:	<span class="comment">#其中数字"1"就是刚刚记录下的Count</span></div></pre></td></tr></table></figure>
+<ul>
+<li>备份系统同样也能完成：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#增量备份，即在“windows.wim”里添加子映像</span></div><div class="line">\&gt; imagex /append C: D:\windows.wim <span class="string">"windows(2)"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>完成了以上工作，基本的操作系统文件已经完成了复制过程，接下来我们则需要给新装的系统添加引导。只需要一条简单的命令，当然你也可以通过easybcd等工具来完成此过程。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\&gt; bcdboot c:\windows</div></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>imagex工具备份和还原的速度快，体积非常小。</li>
+<li>imagex工具在命令行下的语法多样，可以进行各种灵活的操作。</li>
+<li>使用此方法非常适合直接在常用的操作系统上安装第二操作系统，并且速度十分可观，配合VHD安装多系统更是巧妙。</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/21/batch/bat-link-text-files/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          批处理文本连接
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/19/powershell/powershell-share-and-reflect/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">powershell学习之道-文件夹共享及磁盘映射</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style" style="margin-left: 2em">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a>
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="jiwei/imagex-install-os" data-title="imagex.exe花式装系统" data-url="http://blog.lxstart.net/2015/01/20/jiwei/imagex-install-os/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"x-cold"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小冷
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

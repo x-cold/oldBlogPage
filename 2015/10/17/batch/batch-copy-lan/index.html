@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>批处理实现机房文件批量传输 | 小冷的备忘录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题记：计算机维护队将于次日在机房进行队员第一次培训会，培训会上的队员实操过程则需要使用到win7和PE镜像，工作人员（委员）不得不提前拷贝好镜像到每一台机子。于是便有了机房内通过网络批量传输文件的想法，实现之后可以大大减轻工作量，传输速度上瓶颈为100Mbps（机房网络配置），与普通USB3.0的U盘传输速率相比确实低了一大截，在传输速率上似乎不占优势，因此我们将多台主机作为源点传输数据，并行传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="批处理实现机房文件批量传输">
+<meta property="og:url" content="http://blog.lxstart.net/2015/10/17/batch/batch-copy-lan/index.html">
+<meta property="og:site_name" content="小冷的备忘录">
+<meta property="og:description" content="题记：计算机维护队将于次日在机房进行队员第一次培训会，培训会上的队员实操过程则需要使用到win7和PE镜像，工作人员（委员）不得不提前拷贝好镜像到每一台机子。于是便有了机房内通过网络批量传输文件的想法，实现之后可以大大减轻工作量，传输速度上瓶颈为100Mbps（机房网络配置），与普通USB3.0的U盘传输速率相比确实低了一大截，在传输速率上似乎不占优势，因此我们将多台主机作为源点传输数据，并行传">
+<meta property="og:image" content="http://blog.lxstart.net/img/title/6.jpg">
+<meta property="og:image" content="http://blog.lxstart.net/img/jiwei/mimikatz.png">
+<meta property="og:image" content="http://blog.lxstart.net/img/jiwei/文件复制分裂.png">
+<meta property="og:image" content="http://blog.lxstart.net/img/jiwei/文件复制并行.png">
+<meta property="og:updated_time" content="2016-06-30T02:19:32.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="批处理实现机房文件批量传输">
+<meta name="twitter:description" content="题记：计算机维护队将于次日在机房进行队员第一次培训会，培训会上的队员实操过程则需要使用到win7和PE镜像，工作人员（委员）不得不提前拷贝好镜像到每一台机子。于是便有了机房内通过网络批量传输文件的想法，实现之后可以大大减轻工作量，传输速度上瓶颈为100Mbps（机房网络配置），与普通USB3.0的U盘传输速率相比确实低了一大截，在传输速率上似乎不占优势，因此我们将多台主机作为源点传输数据，并行传">
+<meta name="twitter:image" content="http://blog.lxstart.net/img/title/6.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小冷</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						<!--  -->
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">我的主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+					</div>
+				</section>
+				
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.scaujiwei.com/">计算机维护队</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">小冷</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小冷</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-batch/batch-copy-lan" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/17/batch/batch-copy-lan/" class="article-date">
+  	<time datetime="2015-10-16T16:00:00.000Z" itemprop="datePublished">2015-10-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      批处理实现机房文件批量传输
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bat/">bat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmd/">cmd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络共享/">网络共享</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/bat/">bat</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/img/title/6.jpg" alt="title"></p>
+<p>题记：计算机维护队将于次日在机房进行队员第一次培训会，培训会上的队员实操过程则需要使用到win7和PE镜像，工作人员（委员）不得不提前拷贝好镜像到每一台机子。于是便有了机房内通过网络批量传输文件的想法，实现之后可以大大减轻工作量，传输速度上瓶颈为100Mbps（机房网络配置），与普通USB3.0的U盘传输速率相比确实低了一大截，在传输速率上似乎不占优势，因此我们将多台主机作为源点传输数据，并行传输数据，大大提升了时间效率。</p>
+<a id="more"></a>
+<h3 id="机遇阶段"><a href="#机遇阶段" class="headerlink" title="机遇阶段"></a>机遇阶段</h3><p>很凑巧，在同类型的机房中上实验课的时候一不小心执行了以下powershell指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Get-WmiObject -Class Win32_Share -Computername [computername]</div><div class="line"># [computername] 代表主机名</div></pre></td></tr></table></figure>
+<p>意外的收获，默认共享居然没有被关闭，切安全策略~[偷笑]!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Name     Path                          Description</div><div class="line">----     ----                          -----------</div><div class="line">ADMIN$   C:\Windows                    远程管理</div><div class="line">C$       C:\                           默认共享</div><div class="line">D$       D:\                           默认共享</div><div class="line">IPC$                                   远程 IPC</div></pre></td></tr></table></figure>
+<p>然而不出所料，我尝试通过net use空连接到旁边的机子时，被无情的拒之门外。要知道机房的电脑都是自带默认密码的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">net use z: \\[computername]\D$</div><div class="line"></div><div class="line">为 &apos;[computername]&apos; 输入用户名:</div><div class="line">发生系统错误 1223。</div><div class="line">操作已被用户取消。</div></pre></td></tr></table></figure>
+<p>好吧，确实是个棘手的问题，因为不可能提前手动更改用户密码，因为机房的电脑自带还原程序（且不可恶意破坏），因此不得不废弃这个方案。于是编者剑走偏锋，掏出了一代神器<a href="http://blog.gentilkiwi.com/presentations" target="_blank" rel="external">mimikatz_trunk</a>，利用这个神器可以轻易获取windows系统账户的明文密码。</p>
+<h4 id="下载链接"><a href="#下载链接" class="headerlink" title="下载链接"></a>下载链接</h4><ul>
+<li><a href="https://github.com/gentilkiwi/mimikatz/releases/latest" target="_blank" rel="external">Binaires</a></li>
+</ul>
+<ul>
+<li><a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="external">Sources</a></li>
+</ul>
+<p>使用说明详参<a href="https://github.com/gentilkiwi/mimikatz/blob/master/README.md" target="_blank" rel="external">README.md</a>，下载后或编译后程序目录如下：</p>
+<p><img src="/img/jiwei/mimikatz.png" alt="mimikatz"></p>
+<p>我们接着运行如下命令即可获得账户明文密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 提升权限</div><div class="line">mimikatz # privilege::debug</div><div class="line">Privilege &apos;20&apos; OK</div><div class="line"></div><div class="line"># 获取密码</div><div class="line">mimikatz # sekurlsa::logonpasswords</div></pre></td></tr></table></figure>
+<p>获取密码后部分结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"># *是编者自己打上的马赛克，命令执行后输出的全为明文，下同</div><div class="line">Authentication Id : 0 ; 298372 (00000000:00048d84)</div><div class="line">Session           : Interactive from 1</div><div class="line">User Name         : ******</div><div class="line">Domain            : ****</div><div class="line">Logon Server      : (null)</div><div class="line">Logon Time        : 2015-10-16 20:54:11</div><div class="line">SID               : S-1-5-21-*******-********-*********-1004</div><div class="line">        msv :</div><div class="line">         [00000003] Primary</div><div class="line">         * Username : ******@outlook.com</div><div class="line">         * Domain   : MicrosoftAccount</div><div class="line">         * Flags    : I00/N01/L00/S01</div><div class="line">         * NTLM     : 198469ad0**********ed7ddfadd94</div><div class="line">         * SHA1     : 1018ac5781ab260******8b9d57fae11d3313a86</div><div class="line">        tspkg :</div><div class="line">         * Username : ******@outlook.com</div><div class="line">         * Domain   : MicrosoftAccount</div><div class="line">         * Password : ********</div><div class="line">        wdigest :</div><div class="line">         * Username : ******@outlook.com</div><div class="line">         * Domain   : MicrosoftAccount</div><div class="line">         * Password : ******</div><div class="line">        kerberos :</div><div class="line">         * Username : ******@outlook.com</div><div class="line">         * Domain   : MicrosoftAccount</div><div class="line">         * Password : (null)</div><div class="line">        ssp :</div><div class="line">        credman :</div><div class="line">         [00000000]</div><div class="line">         * Username : (null)</div><div class="line">         * Domain   : MicrosoftOffice16_Data:SSPI:lxstart@outlook.com</div><div class="line">         * Password : ******</div></pre></td></tr></table></figure>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p>既然获取到了一台机子的明文密码（账户名默认为Administrator），由于机房采用统一镜像进行安装，因此默认账户信息完全一致，那么，就可以跳到批量传输的阶段了。那么我们来做一个详尽的规划：[篇幅有限，下面只提供关键代码]</p>
+<h4 id="获取局域网内的主机名列表"><a href="#获取局域网内的主机名列表" class="headerlink" title="获取局域网内的主机名列表"></a>获取局域网内的主机名列表</h4><p>原理：通过net view获取局域网主机列表后进行字符串过滤筛选，得到最终的主机名列表并写入hosts.ini文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(for /f &quot;eol=。 skip=3 tokens=1 delims=, &quot; %%i in (&apos;net view&apos;) do (</div><div class="line">	for /f &quot;tokens=1 delims=\ &quot; %%a in (&apos;echo %%i ^| findstr ^\&apos;) do (</div><div class="line">		echo %%a</div><div class="line">	)</div><div class="line">)) &gt;&gt; hosts.ini</div></pre></td></tr></table></figure>
+<h4 id="建立net-use连接"><a href="#建立net-use连接" class="headerlink" title="建立net use连接"></a>建立net use连接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将网络路径\\[hostname]\d$映射到z:\</div><div class="line">net use z: \\[hostname]\d$ &quot;******&quot; /user:&quot;administrator&quot; /persistent:yes</div></pre></td></tr></table></figure>
+<p>在这之前需要先释放z:原本可能存在net use连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net use z: /delete</div></pre></td></tr></table></figure>
+<p>我们就可以直接通过访问z:来访问到目标机器的D盘根目录并进行文件操作了。</p>
+<h4 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h4><p>推荐使用xcopy命令，参数较简单易懂。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 假设D:\已有win7.iso和PE.iso</div><div class="line">xcopy D:\win7.iso Z:\</div><div class="line">xcopy D:\PE.iso Z:\</div></pre></td></tr></table></figure>
+<h4 id="批量复制"><a href="#批量复制" class="headerlink" title="批量复制"></a>批量复制</h4><p>由于我们已经获取到主机名列表，则我们可以串行批量复制文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">for /f  %%a in (hosts.ini) do (</div><div class="line">	echo 正在处理%%a</div><div class="line">	call :copyer %%a</div><div class="line">	:: 删除映射，释放连接</div><div class="line">	net use z: /delete /y</div><div class="line">)</div><div class="line"></div><div class="line"># 定义函数</div><div class="line">:copyer</div><div class="line">net use z: \\%~1\d$ &quot;******&quot; /user:&quot;administrator&quot; /persistent:yes</div><div class="line">xcopy D:\win7.iso Z:\</div><div class="line">xcopy D:\PE.iso Z:\</div></pre></td></tr></table></figure>
+<h4 id="多主机并行处理"><a href="#多主机并行处理" class="headerlink" title="多主机并行处理"></a>多主机并行处理</h4><p>将程序放置到多台主机下运行，划分主机名列表片段到不同的主机，则可同时执行不同的文件批量复制的任务。</p>
+<h4 id="最佳方案"><a href="#最佳方案" class="headerlink" title="最佳方案"></a>最佳方案</h4><p>这里涉及一种类似于细胞分裂的算法技术，在上面原有的基础上添加更能提高效率的解决方案。假设每人负责部署一台主机（用于批量复制文件），复制完46台机子需要(46-6)/6=7轮，开始说表述的每台机子带宽有限（下面的流程图则以一台源主机为例解释），因此传输速度也难以提升。</p>
+<p>更合理的解决方案就是利用所有空闲切有镜像的主机的网络带宽，思路图对比大致如下：</p>
+<ul>
+<li><p>传统<br><img src="/img/jiwei/文件复制分裂.png" alt="传统文件复制"></p>
+</li>
+<li><p>并行化<br><img src="/img/jiwei/文件复制并行.png" alt="并行化文件复制"></p>
+</li>
+</ul>
+<p>关键要解决的问题是需要给下一台机器发送指令，分配给每台主机最优的复制队列：通过ipc$获取远程at和time权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 建立ipc$连接</div><div class="line">net use \\[hostname]\ipc$ &quot;password&quot; /user:&quot;username&quot;</div><div class="line"></div><div class="line"># 获取主机时间，假设为19:00</div><div class="line">net time \\[hostname]</div><div class="line"></div><div class="line"># at 设置命令，假设transformListFile.bat包含了计算下一台机子需要复制到的目标队列的算法</div><div class="line">at \\[hostname] 19:01 transformListFile.bat</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/18/pi/raspberry-pi-system/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          树莓派NAS搭建[1]
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/27/powershell/powershell-test-request-time/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">powershell测试服务器请求时间</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style" style="margin-left: 2em">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a>
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="batch/batch-copy-lan" data-title="批处理实现机房文件批量传输" data-url="http://blog.lxstart.net/2015/10/17/batch/batch-copy-lan/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"x-cold"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小冷
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Javascript之window对象 | 小冷的备忘录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="说到window对象我们不得不提及BOM，BOM是browser object model的缩写，正如其名为浏览器对象模型。BOM提供了独立于内容而与浏览器窗口进行交互的对象，BOM由一系列相关的对象组成，其中最主要对象为window，下面我们将分类讲解window对象。
+概述window对象是BOM顶层(核心对象)，其他对象均为window对象延伸拓展，成为其子对象。直接调用其子对象可以不指明w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript之window对象">
+<meta property="og:url" content="http://blog.lxstart.net/2016/02/11/javascript/basic/javascript-basic-window/index.html">
+<meta property="og:site_name" content="小冷的备忘录">
+<meta property="og:description" content="说到window对象我们不得不提及BOM，BOM是browser object model的缩写，正如其名为浏览器对象模型。BOM提供了独立于内容而与浏览器窗口进行交互的对象，BOM由一系列相关的对象组成，其中最主要对象为window，下面我们将分类讲解window对象。
+概述window对象是BOM顶层(核心对象)，其他对象均为window对象延伸拓展，成为其子对象。直接调用其子对象可以不指明w">
+<meta property="og:image" content="http://blog.lxstart.net/img/javascript/window/window.png">
+<meta property="og:updated_time" content="2016-06-30T02:19:32.659Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript之window对象">
+<meta name="twitter:description" content="说到window对象我们不得不提及BOM，BOM是browser object model的缩写，正如其名为浏览器对象模型。BOM提供了独立于内容而与浏览器窗口进行交互的对象，BOM由一系列相关的对象组成，其中最主要对象为window，下面我们将分类讲解window对象。
+概述window对象是BOM顶层(核心对象)，其他对象均为window对象延伸拓展，成为其子对象。直接调用其子对象可以不指明w">
+<meta name="twitter:image" content="http://blog.lxstart.net/img/javascript/window/window.png">
+  
+    <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小冷</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						<!--  -->
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">我的主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+					</div>
+				</section>
+				
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.scaujiwei.com/">计算机维护队</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">小冷</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小冷</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-javascript/basic/javascript-basic-window" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/11/javascript/basic/javascript-basic-window/" class="article-date">
+  	<time datetime="2016-02-10T16:00:00.000Z" itemprop="datePublished">2016-02-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Javascript之window对象
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BOM/">BOM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/javascript/">javascript</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>说到window对象我们不得不提及BOM，BOM是browser object model的缩写，正如其名为浏览器对象模型。BOM提供了独立于内容而与浏览器窗口进行交互的对象，BOM由一系列相关的对象组成，其中最主要对象为window，下面我们将分类讲解window对象。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>window对象是BOM顶层(核心对象)，其他对象均为window对象延伸拓展，成为其子对象。直接调用其子对象可以不指明window对象，其子对象或者函数的作用域为全局（我们可以在局部的作用域定义window.variable将变量提升为全局变量）。接下来我们将从其子对象和函数两方面刨析。</p>
+<p><a href="http://www.w3school.com.cn/jsref/dom_obj_window.asp" target="_blank" rel="external">w3school对window对象的叙述</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// true</span></div><div class="line"><span class="built_in">window</span>.navigator === navigator;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="self对象"><a href="#self对象" class="headerlink" title="self对象"></a>self对象</h3><p>self对象与window对象完全一致，self通常用于确认在当前窗口内。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// true</span></div><div class="line"><span class="built_in">window</span>.self === <span class="built_in">window</span>;</div><div class="line"><span class="comment">// true</span></div><div class="line">self.self === self;</div></pre></td></tr></table></figure>
+<h3 id="子对象-下面对于子对象函数的描述均省略显示使用window对象"><a href="#子对象-下面对于子对象函数的描述均省略显示使用window对象" class="headerlink" title="子对象(下面对于子对象函数的描述均省略显示使用window对象)"></a>子对象(下面对于子对象函数的描述均省略显示使用window对象)</h3><p><img src="/img/javascript/window/window.png" alt="通过遍历window对象的属性的总结"></p>
+<p>1、window.frames[]<br>如果文档包含框架（frame 或 iframe 标签），浏览器会为 HTML 文档创建一个 window 对象，并为每个框架创建一个额外的 window 对象。通过frames[name]或frames.name（name为框架的name）获取框架的window对象。</p>
+<p><em>注释：没有应用于 window 对象的公开标准，不过所有浏览器都支持该对象。</em></p>
+<p>test.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>test<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"./test.html"</span> <span class="attr">name</span>=<span class="string">"myFrame"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">		<span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">			<span class="built_in">console</span>.log(frames[<span class="string">"myFrame"</span>]);</div><div class="line">		&#125;</div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>获取框架数量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 无框架则为0</span></div><div class="line"><span class="built_in">window</span>.length</div></pre></td></tr></table></figure>
+<p>返回父对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// true</span></div><div class="line">frames[<span class="string">"myFrame"</span>].parent === <span class="built_in">window</span>;</div></pre></td></tr></table></figure>
+<p>返回顶层元素<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// true</span></div><div class="line">frames[<span class="string">"myFrame"</span>].top === <span class="built_in">window</span>;</div></pre></td></tr></table></figure></p>
+<p>2、window.navigator(只读引用)</p>
+<p>Navigator 对象包含有关浏览器的信息。</p>
+<p>属性 | 描述<br>appCodeName | 返回浏览器的代码名。<br>appName | 返回浏览器的名称。<br>userAgent | 返回由客户机发送服务器的 user-agent 头部的值。<br>appVersion | 返回浏览器的平台和版本信息。<br>platform | 返回运行浏览器的操作系统平台。<br>appMinorVersion    | 返回浏览器的次级版本。<br>browserLanguage | 返回当前浏览器的语言。<br>cookieEnabled | 返回指明浏览器中是否启用 cookie 的布尔值。<br>cpuClass | 返回浏览器系统的 CPU 等级。<br>onLine | 返回指明系统是否处于脱机模式的布尔值。<br>systemLanguage | 返回 OS 使用的默认语言。<br>userLanguage | 返回 OS 的自然语言设置。</p>
+<p>—add-in<br>geolocation | 返回地理位置信息</p>
+<p>3、window.screen(只读引用)</p>
+<p>Screen 对象中存放着有关显示浏览器屏幕的信息。JavaScript 程序将利用这些信息来优化它们的输出，以达到用户的显示要求。</p>
+<p>属性 | 描述<br>availHeight | 返回显示屏幕的高度 (除 Windows 任务栏之外)。<br>availWidth | 返回显示屏幕的宽度 (除 Windows 任务栏之外)。<br>bufferDepth | 设置或返回调色板的比特深度。<br>colorDepth | 返回目标设备或缓冲器上的调色板的比特深度。<br>deviceXDPI | 返回显示屏幕的每英寸水平点数。<br>deviceYDPI | 返回显示屏幕的每英寸垂直点数。<br>fontSmoothingEnabled | 返回用户是否在显示控制面板中启用了字体平滑。<br>height | 返回显示屏幕的高度。<br>logicalXDPI | 返回显示屏幕每英寸的水平方向的常规点数。<br>logicalYDPI | 返回显示屏幕每英寸的垂直方向的常规点数。<br>pixelDepth | 返回显示屏幕的颜色分辨率（比特每像素）。<br>updateInterval | 设置或返回屏幕的刷新率。<br>width | 返回显示器屏幕的宽度。</p>
+<p>4、window.location<br>Location 对象包含有关当前 URL 的信息。</p>
+<p>属性 | 描述<br>hash | 设置或返回从井号 (#) 开始的 URL（锚）。<br>host | 设置或返回主机名和当前 URL 的端口号。<br>hostname | 设置或返回当前 URL 的主机名。<br>href | 设置或返回完整的 URL。<br>pathname | 设置或返回当前 URL 的路径部分。<br>port | 设置或返回当前 URL 的端口号。<br>protocol | 设置或返回当前 URL 的协议。<br>search | 设置或返回从问号 (?) 开始的 URL（query部分）。</p>
+<p>属性 | 描述<br>assign() | 加载新的文档。<br>reload() | 重新加载当前文档。<br>replace() | 用新的文档替换当前文档。</p>
+<p>5、window.history(只读引用)<br>History 对象包含用户（在浏览器窗口中）访问过的 URL。<em>是一个类似于栈的数据结构</em></p>
+<p>属性 | 描述<br>length | 返回浏览器历史列表中的 URL 数量。</p>
+<p>函数 | 描述<br>back() | 后退(history列表上一个URL)<br>forward() | 前进(history列表下一个URL)<br>go() | 加载history列表中某个一个URL<br>6、window.document</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>1、窗体控制函数</p>
+<ul>
+<li><p>moveBy()<br>可相对窗口的当前坐标把它移动指定的像素。</p>
+</li>
+<li><p>moveTo()<br>把窗口的左上角移动到一个指定的坐标。</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 右移x，下移y</span></div><div class="line"><span class="built_in">window</span>.moveBy(x,y);</div><div class="line"></div><div class="line"><span class="comment">// 直接到(x, y)坐标</span></div><div class="line"><span class="built_in">window</span>.moveTo(x,y);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>resizeBy()<br>按照指定的像素调整窗口的大小。</p>
+</li>
+<li><p>resizeTo()<br>把窗口的大小调整到指定的宽度和高度。</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 窗口宽度增加width，高度增加height</span></div><div class="line">resizeBy(width,height);</div><div class="line"><span class="comment">// 窗口宽度设置为width，高度设置为height</span></div><div class="line">resizeTo(width,height);</div></pre></td></tr></table></figure>
+<p>2、滚动轴控制函数</p>
+<ul>
+<li><p>scrollTo()<br>按照指定的像素值来滚动内容。</p>
+</li>
+<li><p>scrollBy()<br>把内容滚动到指定的坐标。</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 向右滚动xs，向下滚动ys</span></div><div class="line">scrollBy(xs, ys);</div><div class="line"><span class="comment">// 滚动到(xs，ys)</span></div><div class="line">scrollTo(xs, ys);</div></pre></td></tr></table></figure>
+<p>3、窗体焦点控制函数<br><em>腾讯的在线笔试似乎就是用这个防止作弊的(切换窗口)</em></p>
+<ul>
+<li><p>focus()<br>将键盘焦点赋予某一窗口。</p>
+</li>
+<li><p>blur()<br>把键盘焦点从顶层窗口移开。</p>
+</li>
+</ul>
+<p>4、 新建窗体函数</p>
+<ul>
+<li><p>open()<br>open() 方法用于打开一个新的浏览器窗口或查找一个已命名的窗口。<a href="http://www.w3school.com.cn/jsref/met_win_open.asp" target="_blank" rel="external">参考文档</a></p>
+</li>
+<li><p>close()<br>close() 方法用于关闭浏览器窗口。</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 打开窗口</span></div><div class="line"><span class="keyword">var</span> testWin = <span class="built_in">window</span>.open(<span class="string">"http://www.w3school.com.cn"</span>,<span class="string">"_blank"</span>,<span class="string">"toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400"</span>);</div><div class="line"></div><div class="line"><span class="comment">// 关闭窗口</span></div><div class="line">testWin.close;</div></pre></td></tr></table></figure>
+<p>5、对话框函数</p>
+<ul>
+<li><p>alert()<br>显示带有一段消息和确认按钮的警告框。</p>
+</li>
+<li><p>confirm()<br>显示带有一段消息以及确认按钮和取消按钮的对话框。返回值为（确认按钮 ？ true : false）</p>
+</li>
+<li><p>prompt()<br>显示带有一段消息以及输入框、确认按钮和取消按钮的对话框。<br><em>返回值为：输入的字符串或者null（取消按钮）</em></p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// alert()</span></div><div class="line">alert(<span class="string">'hello'</span>);</div><div class="line"></div><div class="line"><span class="comment">// confirm()</span></div><div class="line">confirm(<span class="string">'确认吗？'</span>) ? <span class="built_in">console</span>.log(<span class="string">'您点击了确认'</span>) : <span class="built_in">console</span>.log(<span class="string">'您点击了取消'</span>);</div><div class="line"></div><div class="line"><span class="comment">// prompt</span></div><div class="line"><span class="keyword">var</span> string = prompt(<span class="string">'请输入学号'</span>);</div><div class="line">string !== <span class="literal">null</span> ? <span class="built_in">console</span>.log(<span class="string">'学号是'</span> + string) : <span class="built_in">console</span>.log(<span class="string">'您点击了取消'</span><span class="string">');</span></div></pre></td></tr></table></figure>
+<p>6、时间等待和间隔函数</p>
+<ul>
+<li><p>setTimeout()/clearTimeout()<br>按照指定的周期（以毫秒计）来调用函数或计算表达式 / 取消前者设定的计时器</p>
+</li>
+<li><p>setInterval/clearInterval()<br>在指定的毫秒数后调用函数或计算表达式 / 取消前者设定的计时器</p>
+</li>
+</ul>
+<h3 id="其他属性"><a href="#其他属性" class="headerlink" title="其他属性"></a>其他属性</h3><p>1、状态栏属性</p>
+<ul>
+<li><p>window.defaultStatus<br>设置或返回窗口状态栏中的默认文本。</p>
+</li>
+<li><p>window.status<br>设置窗口状态栏的文本。</p>
+</li>
+</ul>
+<p>2、窗口大小</p>
+<ul>
+<li><p>innerHeight<br>页面可视化区域的高度（包含滚动条）</p>
+</li>
+<li><p>innerWidth<br>页面可视化区域的宽度（包含滚动条）</p>
+</li>
+<li><p>outerHeight<br>窗口可视化区域的高度（包含页面可视化区域和浏览器状态栏、工具栏等，即屏幕高度减去任务栏的高度）</p>
+</li>
+<li><p>outerWidth<br>窗口可视化区域的宽度（解释同上）</p>
+</li>
+</ul>
+<p>3、位置偏移</p>
+<ul>
+<li><p>pageXOffset<br>设置或返回当前页面相对于窗口显示区左上角的 X 位置。</p>
+</li>
+<li><p>pageYOffset<br>设置或返回当前页面相对于窗口显示区左上角的 Y 位置。</p>
+</li>
+<li><p>screenLeft / screenTop / screenX / screenY</p>
+</li>
+</ul>
+<p><em>只读整数。声明了窗口的左上角在屏幕上的的 x 坐标和 y 坐标。IE、Safari 和 Opera 支持 screenLeft 和 screenTop，而 Firefox 和 Safari 支持 screenX 和 screenY</em></p>
+<p>4、opener<br>返回对创建此窗口的窗口的引用。</p>
+<p>5、窗口关系</p>
+<ul>
+<li><p>name<br>设置或返回窗口的名称。</p>
+</li>
+<li><p>parent<br>返回父窗口。</p>
+</li>
+<li><p>top<br>返回顶层的先辈窗口。</p>
+</li>
+<li><p>closed<br>返回一个窗口是否关闭。</p>
+</li>
+</ul>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><p>另开一篇文章详述javascript的事件，关于window的事件不再重复赘述。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/02/28/javascript/components/html-inchude/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          如何在HTML内包含HTML模板文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/31/hci/hci-front-end-homework/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HCI之前端小任务 [HCI趣玩-2016年预热]</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style" style="margin-left: 2em">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a>
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="javascript/basic/javascript-basic-window" data-title="Javascript之window对象" data-url="http://blog.lxstart.net/2016/02/11/javascript/basic/javascript-basic-window/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"x-cold"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小冷
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
