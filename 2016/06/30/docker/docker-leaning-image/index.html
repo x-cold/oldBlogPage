@@ -11,12 +11,12 @@
 Docker运行一个容器实例之前，可以以一个镜像为基础环境，如以一个包含centos操作系统的Docker镜像为模板。建立容器之前，Docke">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker大行其道—镜像">
-<meta property="og:url" content="http://blog.lxstart.net/2016/06/30/Docker大行其道—镜像/index.html">
+<meta property="og:url" content="http://blog.lxstart.net/2016/06/30/docker/docker-leaning-image/index.html">
 <meta property="og:site_name" content="小冷的备忘录">
 <meta property="og:description" content="作为Docker三大核心概念之一，Docker镜像（Docker Image）是一个面向Docker引擎的只读模板，包含文件系统。实际上每个Docker镜像包含一个独立的运行环境，如一个镜像包含centos操作系统环境，我们称之为一个centos镜像。
 
 Docker运行一个容器实例之前，可以以一个镜像为基础环境，如以一个包含centos操作系统的Docker镜像为模板。建立容器之前，Docke">
-<meta property="og:updated_time" content="2016-06-30T03:41:56.153Z">
+<meta property="og:updated_time" content="2016-06-30T04:17:22.600Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker大行其道—镜像">
 <meta name="twitter:description" content="作为Docker三大核心概念之一，Docker镜像（Docker Image）是一个面向Docker引擎的只读模板，包含文件系统。实际上每个Docker镜像包含一个独立的运行环境，如一个镜像包含centos操作系统环境，我们称之为一个centos镜像。
@@ -180,10 +180,10 @@ Docker运行一个容器实例之前，可以以一个镜像为基础环境，�
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Docker大行其道—镜像" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-docker/docker-leaning-image" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/30/Docker大行其道—镜像/" class="article-date">
+      <a href="/2016/06/30/docker/docker-leaning-image/" class="article-date">
   	<time datetime="2016-06-30T02:33:24.000Z" itemprop="datePublished">2016-06-30</time>
 </a>
     </div>
@@ -227,7 +227,7 @@ Docker运行一个容器实例之前，可以以一个镜像为基础环境，�
 <li>查看镜像具体的信息</li>
 </ul>
 <p><code>dpcler inspect ID</code>可以获取镜像的详细信息，执行后得到一个JSON格式的消息，如果仅仅需要查询镜像的某一项信息，可以使用<code>-f</code>参数来指定。例如，获取镜像的Author信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker inspect -f &#123;&#123;&quot;.Author&quot;&#125;&#125; [IMAGE_ID]</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$sudo</span> docker inspect <span class="_">-f</span> &#123;&#123;<span class="string">".Author"</span>&#125;&#125; [IMAGE_ID]</div></pre></td></tr></table></figure>
 <ul>
 <li>给镜像添加一个自定义标签</li>
 </ul>
@@ -270,12 +270,12 @@ Docker运行一个容器实例之前，可以以一个镜像为基础环境，�
 </tbody>
 </table>
 <p>通过<code>docker ps</code>命令获取需要创建镜像的容器ID，通过执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker commit -m &quot;[MESSAGE]&quot; -a &quot;[AUTHOR]&quot; [CONTAINER_ID] [IMAGE_NAME]</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$sudo</span> docker commit -m <span class="string">"[MESSAGE]"</span> <span class="_">-a</span> <span class="string">"[AUTHOR]"</span> [CONTAINER_ID] [IMAGE_NAME]</div></pre></td></tr></table></figure>
 <ul>
 <li>本地模板导入镜像</li>
 </ul>
 <p><code>docker import</code>可以从一个 打包好的镜像文件创建镜像，一般情况下表现为.tar.gz压缩包。例如，导入一个ubuntu操作系统的镜像到本地：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo cat ubuntu-15.04-x86_64.tar.gz | docker import - ubuntu:15.04</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$sudo</span> cat ubuntu-15.04-x86_64.tar.gz | docker import - ubuntu:15.04</div></pre></td></tr></table></figure>
 <ul>
 <li>Dockerfile创建镜像</li>
 </ul>
@@ -284,11 +284,11 @@ Docker运行一个容器实例之前，可以以一个镜像为基础环境，�
 <h4 id="存出和载入镜像"><a href="#存出和载入镜像" class="headerlink" title="存出和载入镜像"></a>存出和载入镜像</h4><ul>
 <li>存出镜像：<code>docker save</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker save -o ubuntu-15.04-x86_64.tar ubuntu:15.04</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$sudo</span> docker save -o ubuntu-15.04-x86_64.tar ubuntu:15.04</div></pre></td></tr></table></figure>
 <ul>
 <li>载入镜像：<code>docker load</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$sudo docker load --input ubuntu-15.04-x86_64.tar</div><div class="line"># 或者</div><div class="line">$sudo docker load &lt; ubuntu-15.04-x86_64.tar</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$sudo</span> docker load --input ubuntu-15.04-x86_64.tar</div><div class="line"><span class="comment"># 或者</span></div><div class="line"><span class="variable">$sudo</span> docker load &lt; ubuntu-15.04-x86_64.tar</div></pre></td></tr></table></figure>
 <h4 id="上传镜像"><a href="#上传镜像" class="headerlink" title="上传镜像"></a>上传镜像</h4><p><code>docker push</code>命令可以将镜像上传到远程仓库（默认为DockerHub官方仓库，需要注册账号）。用法为：<code>docker push NAME[:TAG]</code>,强烈建议添加好语义化的标签名后上传。</p>
 <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>镜像是开启Docker容器的前提，掌握镜像的概念以及对应的查看、获取、搜索、删除、创建、导入导出、上传等操作对于Docker的入门学习有莫大的帮助。我们还可以借助Docker Hub等镜像仓库还提供的更全面的镜像服务进行学习和使用，例如web查询系统 (<a href="http://index.docker.io/" target="_blank" rel="external">http://index.docker.io/</a>) 等，同时我们也可以将日常使用的高质量的镜像资源分享到开源社区共同学习。</p>
 
@@ -301,7 +301,7 @@ Docker运行一个容器实例之前，可以以一个镜像为基础环境，�
 <nav id="article-nav">
   
   
-    <a href="/2016/05/29/docker/docker-leaning-1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/05/29/docker/docker-leaning-gallery/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Docker大行其道—初识</div>
       <strong class="article-nav-caption">></strong>
     </a>
@@ -337,7 +337,7 @@ Docker运行一个容器实例之前，可以以一个镜像为基础环境，�
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Docker大行其道—镜像" data-title="Docker大行其道—镜像" data-url="http://blog.lxstart.net/2016/06/30/Docker大行其道—镜像/"></div>
+	<div class="ds-thread" data-thread-key="docker/docker-leaning-image" data-title="Docker大行其道—镜像" data-url="http://blog.lxstart.net/2016/06/30/docker/docker-leaning-image/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
