@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>批处理实现批量文件重命名 | 小冷的备忘录</title>
+  <title>批处理批量文件重命名 | 小冷的备忘录</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="模拟一下这样的情景，假设我有一个文件夹用于保存各种下载的文本文件（自然也可以是其他格式的文件），当这个文件夹文件数量达到一定规模时，我需要将这些文件的名字序列化，那么下面这个批处理文件便横空出世了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="批处理实现批量文件重命名">
+<meta property="og:title" content="批处理批量文件重命名">
 <meta property="og:url" content="http://blog.lxstart.net/2015/01/18/batch/bat-batch-rename-files/index.html">
 <meta property="og:site_name" content="小冷的备忘录">
 <meta property="og:description" content="模拟一下这样的情景，假设我有一个文件夹用于保存各种下载的文本文件（自然也可以是其他格式的文件），当这个文件夹文件数量达到一定规模时，我需要将这些文件的名字序列化，那么下面这个批处理文件便横空出世了。">
-<meta property="og:updated_time" content="2016-06-30T02:19:32.598Z">
+<meta property="og:updated_time" content="2016-08-10T14:33:35.909Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="批处理实现批量文件重命名">
+<meta name="twitter:title" content="批处理批量文件重命名">
 <meta name="twitter:description" content="模拟一下这样的情景，假设我有一个文件夹用于保存各种下载的文本文件（自然也可以是其他格式的文件），当这个文件夹文件数量达到一定规模时，我需要将这些文件的名字序列化，那么下面这个批处理文件便横空出世了。">
   
     <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 15px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 17.5px;">bat</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/powershell/" style="font-size: 15px;">powershell</a> <a href="/tags/shell/" style="font-size: 12.5px;">shell</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/文件夹共享/" style="font-size: 10px;">文件夹共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/计算机维护/" style="font-size: 12.5px;">计算机维护</a>
 					</div>
 				</section>
 				
@@ -191,7 +191,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      批处理实现批量文件重命名
+      批处理批量文件重命名
     </h1>
   
 
@@ -200,12 +200,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bat/">bat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmd/">cmd</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bat/">bat</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/bat/">bat</a>
+	<a class="article-category-link" href="/categories/bat/">bat</a><a class="article-category-link" href="/categories/bat/批处理小工具/">批处理小工具</a>
 	</div>
 
 
@@ -215,7 +215,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>模拟一下这样的情景，假设我有一个文件夹用于保存各种下载的文本文件（自然也可以是其他格式的文件），当这个文件夹文件数量达到一定规模时，我需要将这些文件的名字序列化，那么下面这个批处理文件便横空出世了。</p>
+        <blockquote>
+<p>模拟一下这样的情景，假设我有一个文件夹用于保存各种下载的文本文件（自然也可以是其他格式的文件），当这个文件夹文件数量达到一定规模时，我需要将这些文件的名字序列化，那么下面这个批处理文件便横空出世了。</p>
+</blockquote>
 <a id="more"></a>
 <p>###实现代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@echo off</div><div class="line">setlocal EnableDelayedExpansion</div><div class="line">::下面这个语句要请改成你要处理的文件夹路径如“pushd %~dp0^\text”改成&quot;pushd &quot;c:\text&quot;&quot;</div><div class="line">pushd %~dp0^\text</div><div class="line">::计数</div><div class="line">set /a index = 0</div><div class="line">for /f %%i in (&apos;dir /b /a-d *.*&apos;) do (</div><div class="line">set /a index += 1</div><div class="line">ren %%~nxi !index!%%~xi</div><div class="line">)</div><div class="line">echo 共扫描到!index!个文件。</div><div class="line">pause&gt;nul</div></pre></td></tr></table></figure>
@@ -275,7 +277,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="batch/bat-batch-rename-files" data-title="批处理实现批量文件重命名" data-url="http://blog.lxstart.net/2015/01/18/batch/bat-batch-rename-files/"></div>
+	<div class="ds-thread" data-thread-key="batch/bat-batch-rename-files" data-title="批处理批量文件重命名" data-url="http://blog.lxstart.net/2015/01/18/batch/bat-batch-rename-files/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

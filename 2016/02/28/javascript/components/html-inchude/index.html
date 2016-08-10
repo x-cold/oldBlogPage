@@ -4,21 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>如何在HTML内包含HTML模板文件 | 小冷的备忘录</title>
+  <title>Include html模板文件 | 小冷的备忘录</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="题记：最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。
-言归正传，我们要实现的功能就是在一个HTML内引用其他的HTML模板文件。例如以下场景：应用的多个页面需要复用一个header，而我们">
+  <meta name="description" content="最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。
+
+言归正传，我们要实现的功能就是在一个HTML内引用其他的HTML模板文件。例如以下场景：应用的多个页面需要复用一个header，而我们希">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在HTML内包含HTML模板文件">
+<meta property="og:title" content="Include html模板文件">
 <meta property="og:url" content="http://blog.lxstart.net/2016/02/28/javascript/components/html-inchude/index.html">
 <meta property="og:site_name" content="小冷的备忘录">
-<meta property="og:description" content="题记：最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。
-言归正传，我们要实现的功能就是在一个HTML内引用其他的HTML模板文件。例如以下场景：应用的多个页面需要复用一个header，而我们">
-<meta property="og:updated_time" content="2016-06-30T02:19:32.687Z">
+<meta property="og:description" content="最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。
+
+言归正传，我们要实现的功能就是在一个HTML内引用其他的HTML模板文件。例如以下场景：应用的多个页面需要复用一个header，而我们希">
+<meta property="og:updated_time" content="2016-08-10T14:34:38.265Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何在HTML内包含HTML模板文件">
-<meta name="twitter:description" content="题记：最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。
-言归正传，我们要实现的功能就是在一个HTML内引用其他的HTML模板文件。例如以下场景：应用的多个页面需要复用一个header，而我们">
+<meta name="twitter:title" content="Include html模板文件">
+<meta name="twitter:description" content="最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。
+
+言归正传，我们要实现的功能就是在一个HTML内引用其他的HTML模板文件。例如以下场景：应用的多个页面需要复用一个header，而我们希">
   
     <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
   
@@ -111,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 15px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 17.5px;">bat</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/powershell/" style="font-size: 15px;">powershell</a> <a href="/tags/shell/" style="font-size: 12.5px;">shell</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/文件夹共享/" style="font-size: 10px;">文件夹共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/计算机维护/" style="font-size: 12.5px;">计算机维护</a>
 					</div>
 				</section>
 				
@@ -194,7 +197,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      如何在HTML内包含HTML模板文件
+      Include html模板文件
     </h1>
   
 
@@ -203,12 +206,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/javascript/">javascript</a><a class="article-category-link" href="/categories/javascript/component/">component</a>
+	<a class="article-category-link" href="/categories/javascript/">javascript</a><a class="article-category-link" href="/categories/javascript/JS-DEMO/">JS DEMO</a>
 	</div>
 
 
@@ -218,7 +221,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>题记：最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。</p>
+        <blockquote>
+<p>最近项目开发使用了全新的架构（RequireJS+AngularJS+IonicUI），类似的前端MVVM框架已经深入人心，因此也试着在项目之余写一点小代码实现部分功能。下面我们将用原生的Javascript实现一个在HTML内引入HTML文件的简单小组件。</p>
+</blockquote>
 <p>言归正传，我们要实现的功能就是在一个HTML内引用其他的HTML模板文件。例如以下场景：应用的多个页面需要复用一个header，而我们希望只对其进行一次编辑和修改就可以应用于所有页面，因为我们可以将header的内容作为一个模板，其他页面只需要调用这个模板。</p>
 <a id="more"></a>
 <p><em>在后端的模板引擎内我们可以直接使用<code>include</code>类似的语句包含其他的模板，在一些SPA(Single Page APP)也是利用了类似于<code>ng-include</code>的写法复用HTML模板</em></p>
@@ -270,7 +275,7 @@
   
   
     <a href="/2016/02/11/javascript/basic/javascript-basic-window/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Javascript之window对象</div>
+      <div class="article-nav-title">浅谈BOM—window对象</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -305,7 +310,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="javascript/components/html-inchude" data-title="如何在HTML内包含HTML模板文件" data-url="http://blog.lxstart.net/2016/02/28/javascript/components/html-inchude/"></div>
+	<div class="ds-thread" data-thread-key="javascript/components/html-inchude" data-title="Include html模板文件" data-url="http://blog.lxstart.net/2016/02/28/javascript/components/html-inchude/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

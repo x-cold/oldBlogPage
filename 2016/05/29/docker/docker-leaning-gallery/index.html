@@ -7,20 +7,23 @@
   <title>Docker大行其道—初识 | 小冷的备忘录</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="随着分布式、云计算、大数据的火热爆发，大量的云计算集群出现，光凭计算机硬件配置的已经无法再次一较高下，虚拟化成为其中最核心的技术。虚拟化既可以通过硬件模拟，也可以通过操作系统层面去实现，近年来热火朝天的容器轻量级虚拟化，保留了操作系统本身的机制和特性，而Docker在此脱颖而出。
-Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归于Apache基金会并遵循Apache 2.0">
+
+Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归于Apache基金会并遵循Apache 2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker大行其道—初识">
 <meta property="og:url" content="http://blog.lxstart.net/2016/05/29/docker/docker-leaning-gallery/index.html">
 <meta property="og:site_name" content="小冷的备忘录">
 <meta property="og:description" content="随着分布式、云计算、大数据的火热爆发，大量的云计算集群出现，光凭计算机硬件配置的已经无法再次一较高下，虚拟化成为其中最核心的技术。虚拟化既可以通过硬件模拟，也可以通过操作系统层面去实现，近年来热火朝天的容器轻量级虚拟化，保留了操作系统本身的机制和特性，而Docker在此脱颖而出。
-Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归于Apache基金会并遵循Apache 2.0">
+
+Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归于Apache基金会并遵循Apache 2">
 <meta property="og:image" content="http://www.linuxprobe.com/wp-content/uploads/2016/05/docker-frame.png">
 <meta property="og:image" content="http://www.linuxprobe.com/wp-content/uploads/2016/05/Kubernetes.png">
-<meta property="og:updated_time" content="2016-06-30T02:19:32.633Z">
+<meta property="og:updated_time" content="2016-08-10T14:29:37.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker大行其道—初识">
 <meta name="twitter:description" content="随着分布式、云计算、大数据的火热爆发，大量的云计算集群出现，光凭计算机硬件配置的已经无法再次一较高下，虚拟化成为其中最核心的技术。虚拟化既可以通过硬件模拟，也可以通过操作系统层面去实现，近年来热火朝天的容器轻量级虚拟化，保留了操作系统本身的机制和特性，而Docker在此脱颖而出。
-Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归于Apache基金会并遵循Apache 2.0">
+
+Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归于Apache基金会并遵循Apache 2">
 <meta name="twitter:image" content="http://www.linuxprobe.com/wp-content/uploads/2016/05/docker-frame.png">
   
     <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
@@ -114,7 +117,7 @@ Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 15px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 17.5px;">bat</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/powershell/" style="font-size: 15px;">powershell</a> <a href="/tags/shell/" style="font-size: 12.5px;">shell</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/文件夹共享/" style="font-size: 10px;">文件夹共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/计算机维护/" style="font-size: 12.5px;">计算机维护</a>
 					</div>
 				</section>
 				
@@ -221,7 +224,9 @@ Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>随着分布式、云计算、大数据的火热爆发，大量的云计算集群出现，光凭计算机硬件配置的已经无法再次一较高下，虚拟化成为其中最核心的技术。虚拟化既可以通过硬件模拟，也可以通过操作系统层面去实现，近年来热火朝天的容器轻量级虚拟化，保留了操作系统本身的机制和特性，而Docker在此脱颖而出。</p>
+        <blockquote>
+<p>随着分布式、云计算、大数据的火热爆发，大量的云计算集群出现，光凭计算机硬件配置的已经无法再次一较高下，虚拟化成为其中最核心的技术。虚拟化既可以通过硬件模拟，也可以通过操作系统层面去实现，近年来热火朝天的容器轻量级虚拟化，保留了操作系统本身的机制和特性，而Docker在此脱颖而出。</p>
+</blockquote>
 <h3 id="Docker的前世今生"><a href="#Docker的前世今生" class="headerlink" title="Docker的前世今生"></a>Docker的前世今生</h3><p>Docker是基于Go语言实现的云开源项目，目前归于Apache基金会并遵循Apache 2.0协议。诞生于2013年初，前身公司为dotCloud，docker开源后得到受到社会广泛的关注，docker的生态圈体系也逐渐成熟，这家公司也改名为Docker Inc，专注于Docker相关技术和产品开发。</p>
 <a id="more"></a>
 <p>Docker最大的目标是：“Build, Ship and Run Any App, Anywhere！”。你只需要通过对应用组件的一次的封装，就能在任意地点构建和运行你的应用。无论是一个完整的应用，或者是某些微服务，甚至到一个完整的操作系统都能成为docker的应用组件。Docker提供一个高效、敏捷和轻量的容器方案，能动态适应各种规模的系统部署需求。</p>
@@ -268,7 +273,7 @@ Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归
     
 <nav id="article-nav">
   
-    <a href="/2016/06/30/docker/docker-leaning-image/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/06/30/docker/ddocker-leaning-image/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
@@ -279,7 +284,7 @@ Docker的前世今生Docker是基于Go语言实现的云开源项目，目前归
   
   
     <a href="/2016/02/28/javascript/components/html-inchude/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">如何在HTML内包含HTML模板文件</div>
+      <div class="article-nav-title">Include html模板文件</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

@@ -7,18 +7,21 @@
   <title>powershell学习之道-文件夹共享及磁盘映射 | 小冷的备忘录</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在Linux环境下，我们很轻易就能得心应手地通过命令操作一切事物，在Windows下，Powershell也算是后起之秀，提供大量的cmdlet以及c#的横向拓展。下面将由小编带领大家通过Powershell实现文件夹共享，当然文中也不会冷落cmd这枚老将。
-文件夹共享概述共享文件夹的应用非常广泛，客户端对服务器端进行文件管理，局域网文件直传等等，在linux下，可以简单的安装smaba协议，简单">
+
+文件夹共享概述共享文件夹的应用非常广泛，客户端对服务器端进行文件管理，局域网文件直传等等，在linux下，可以简单的安装smaba协议，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="powershell学习之道-文件夹共享及磁盘映射">
 <meta property="og:url" content="http://blog.lxstart.net/2015/01/19/powershell/powershell-share-and-reflect/index.html">
 <meta property="og:site_name" content="小冷的备忘录">
 <meta property="og:description" content="在Linux环境下，我们很轻易就能得心应手地通过命令操作一切事物，在Windows下，Powershell也算是后起之秀，提供大量的cmdlet以及c#的横向拓展。下面将由小编带领大家通过Powershell实现文件夹共享，当然文中也不会冷落cmd这枚老将。
-文件夹共享概述共享文件夹的应用非常广泛，客户端对服务器端进行文件管理，局域网文件直传等等，在linux下，可以简单的安装smaba协议，简单">
-<meta property="og:updated_time" content="2016-06-30T02:19:32.733Z">
+
+文件夹共享概述共享文件夹的应用非常广泛，客户端对服务器端进行文件管理，局域网文件直传等等，在linux下，可以简单的安装smaba协议，">
+<meta property="og:updated_time" content="2016-08-10T14:35:04.129Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="powershell学习之道-文件夹共享及磁盘映射">
 <meta name="twitter:description" content="在Linux环境下，我们很轻易就能得心应手地通过命令操作一切事物，在Windows下，Powershell也算是后起之秀，提供大量的cmdlet以及c#的横向拓展。下面将由小编带领大家通过Powershell实现文件夹共享，当然文中也不会冷落cmd这枚老将。
-文件夹共享概述共享文件夹的应用非常广泛，客户端对服务器端进行文件管理，局域网文件直传等等，在linux下，可以简单的安装smaba协议，简单">
+
+文件夹共享概述共享文件夹的应用非常广泛，客户端对服务器端进行文件管理，局域网文件直传等等，在linux下，可以简单的安装smaba协议，">
   
     <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
   
@@ -111,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 16px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 18px;">bat</a> <a href="/tags/cmd/" style="font-size: 20px;">cmd</a> <a href="/tags/css/" style="font-size: 14px;">css</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/js/" style="font-size: 16px;">js</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/powershell/" style="font-size: 16px;">powershell</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spider/" style="font-size: 10px;">spider</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/网络共享/" style="font-size: 10px;">网络共享</a> <a href="/tags/计算机维护/" style="font-size: 12px;">计算机维护</a>
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 15px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 17.5px;">bat</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/powershell/" style="font-size: 15px;">powershell</a> <a href="/tags/shell/" style="font-size: 12.5px;">shell</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/文件夹共享/" style="font-size: 10px;">文件夹共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/计算机维护/" style="font-size: 12.5px;">计算机维护</a>
 					</div>
 				</section>
 				
@@ -218,7 +221,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在Linux环境下，我们很轻易就能得心应手地通过命令操作一切事物，在Windows下，Powershell也算是后起之秀，提供大量的cmdlet以及c#的横向拓展。下面将由小编带领大家通过Powershell实现文件夹共享，当然文中也不会冷落cmd这枚老将。</p>
+        <blockquote>
+<p>在Linux环境下，我们很轻易就能得心应手地通过命令操作一切事物，在Windows下，Powershell也算是后起之秀，提供大量的cmdlet以及c#的横向拓展。下面将由小编带领大家通过Powershell实现文件夹共享，当然文中也不会冷落cmd这枚老将。</p>
+</blockquote>
 <h3 id="文件夹共享概述"><a href="#文件夹共享概述" class="headerlink" title="文件夹共享概述"></a>文件夹共享概述</h3><p>共享文件夹的应用非常广泛，客户端对服务器端进行文件管理，局域网文件直传等等，在linux下，可以简单的安装smaba协议，简单的配置之后即可使用。在windows下，可以通过图形化的操作开启这项功能，当然带着一点极客风格，我们通过powershell（少量出现cmd）来对其进行管理。</p>
 <a id="more"></a>
 <h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="查看共享列表"><a href="#查看共享列表" class="headerlink" title="查看共享列表"></a>查看共享列表</h4><p>在powershell内，我们可以通过执行以下cmdlet获取共享信息：</p>
@@ -260,14 +265,14 @@
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          imagex.exe花式装系统
+          装系统奇技淫巧之imagex
         
       </div>
     </a>
   
   
     <a href="/2015/01/18/batch/bat-batch-rename-files/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">批处理实现批量文件重命名</div>
+      <div class="article-nav-title">批处理批量文件重命名</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
