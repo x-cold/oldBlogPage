@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Javascript 设计模式之单例模式 | 小冷的备忘录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="单例模式是一个非常典型的设计模式，保证一个类只有唯一实例，并且提供单一的访问点。单例的对象不同于静态类，我们可以延迟单例对象的初始化，通常这种情况发生在我们需要等待加载创建单例的依赖。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript 设计模式之单例模式">
+<meta property="og:url" content="http://blog.lxstart.net/2016/08/04/javascript/pattern/singleton/index.html">
+<meta property="og:site_name" content="小冷的备忘录">
+<meta property="og:description" content="单例模式是一个非常典型的设计模式，保证一个类只有唯一实例，并且提供单一的访问点。单例的对象不同于静态类，我们可以延迟单例对象的初始化，通常这种情况发生在我们需要等待加载创建单例的依赖。">
+<meta property="og:updated_time" content="2016-08-13T04:47:15.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript 设计模式之单例模式">
+<meta name="twitter:description" content="单例模式是一个非常典型的设计模式，保证一个类只有唯一实例，并且提供单一的访问点。单例的对象不同于静态类，我们可以延迟单例对象的初始化，通常这种情况发生在我们需要等待加载创建单例的依赖。">
+  
+    <link rel="alternative" href="/atom.xml" title="小冷的备忘录" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小冷</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						<!--  -->
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">我的主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BOM/" style="font-size: 10px;">BOM</a> <a href="/tags/HCI/" style="font-size: 15px;">HCI</a> <a href="/tags/NAS/" style="font-size: 10px;">NAS</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/bat/" style="font-size: 17.5px;">bat</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/powershell/" style="font-size: 15px;">powershell</a> <a href="/tags/shell/" style="font-size: 12.5px;">shell</a> <a href="/tags/文件共享/" style="font-size: 10px;">文件共享</a> <a href="/tags/文件夹共享/" style="font-size: 10px;">文件夹共享</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/计算机维护/" style="font-size: 12.5px;">计算机维护</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+					</div>
+				</section>
+				
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.scaujiwei.com/">计算机维护队</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">小冷</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小冷</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">但凡能引起思考的句子，都是些好句子。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">我的主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/x-cold" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lxstart@outlook.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-javascript/pattern/singleton" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/04/javascript/pattern/singleton/" class="article-date">
+  	<time datetime="2016-08-04T05:25:00.000Z" itemprop="datePublished">2016-08-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Javascript 设计模式之单例模式
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/javascript/">javascript</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>单例模式是一个非常典型的设计模式，保证一个类只有唯一实例，并且提供单一的访问点。单例的对象不同于静态类，我们可以延迟单例对象的初始化，通常这种情况发生在我们需要等待加载创建单例的依赖。</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="单例的特性"><a href="#单例的特性" class="headerlink" title="单例的特性"></a>单例的特性</h4><ul>
+<li><p>全局唯一实例</p>
+</li>
+<li><p>单一的访问入口</p>
+</li>
+</ul>
+<h4 id="如何创建一个单例？"><a href="#如何创建一个单例？" class="headerlink" title="如何创建一个单例？"></a>如何创建一个单例？</h4><p>接下来我将以设计一个全局的Loading状态的实例以渐入佳境。</p>
+<blockquote>
+<p>你不是真正的单例？</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 创建一个loading实例</span></div><div class="line"><span class="keyword">var</span> createLoading = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> LOADING_TPL = <span class="string">'&lt;div id="loading"&gt;&lt;/div&gt;'</span>;</div><div class="line">	<span class="keyword">var</span> loading = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</div><div class="line">	loading.innerText = LOADING_TPL;</div><div class="line">	<span class="keyword">return</span> <span class="built_in">document</span>.body.appendChild(loading);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>假定createLoading是一个全局的函数，我们在任意的地方都能对其进行访问和调用。</p>
+<blockquote>
+<p>Ajax With Loading</p>
+</blockquote>
+<p>假定我们封装了一个调用Ajax的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建一个loading实例</span></div><div class="line"><span class="keyword">var</span> loading = createLoading();</div><div class="line"></div><div class="line"><span class="comment">// Ajax</span></div><div class="line"><span class="keyword">var</span> Ajax = <span class="function"><span class="keyword">function</span> (<span class="params">opt</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> options = $.extend(opt, &#123;</div><div class="line">		success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">			loading.hide();</div><div class="line">			opt.success(data);</div><div class="line">		&#125;,</div><div class="line">		error: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">			loading.hide();</div><div class="line">			opt.error(data);</div><div class="line">		&#125;</div><div class="line">	&#125;);</div><div class="line">	loading.show();</div><div class="line">	<span class="keyword">return</span> $.ajax(options);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 下面是调用的代码</span></div><div class="line"></div><div class="line">Ajax(&#123;</div><div class="line">	url: <span class="string">'/api'</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通过如上的操作，我们可以让通过Ajax函数发起的请求，在发起时触发loading的展示效果，在结束时触发loading的隐藏效果。</p>
+<blockquote>
+<p>Async Operation With Loading</p>
+</blockquote>
+<p>假定同时，我们又有一个新的需求：在另外一个异步的函数里面也需要触发loading的效果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> loading = createLoading();</div><div class="line"></div><div class="line"><span class="comment">// 异步函数</span></div><div class="line"><span class="keyword">var</span> asyncFunctionMaker = <span class="function"><span class="keyword">function</span>(<span class="params">operation, callback</span>) </span>&#123;</div><div class="line">	loading.show();</div><div class="line">	<span class="keyword">var</span> cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		loading.hide();</div><div class="line">		callback.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>);</div><div class="line">	&#125;;</div><div class="line">	operation.call(<span class="literal">null</span>, callback);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 下面是调用的代码</span></div><div class="line"><span class="keyword">var</span> op = <span class="function"><span class="keyword">function</span>(<span class="params">cb</span>) </span>&#123;</div><div class="line">	setTimeout(cb, <span class="number">200</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'test'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">asyncFunctionMaker(op, cb);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>引入单例模式</p>
+</blockquote>
+<p>虽然通过以上的方案，我们能够同时应对以上的需求，但是我们也发现一些问题。</p>
+<ol>
+<li><p>为了保持模块的独立，我们可能会重复创建loading对象。</p>
+</li>
+<li><p>每次触发show或者hide效果，实际上还需要判断loading当前的状态</p>
+</li>
+</ol>
+<p>解决问题1，细心的同学会说，直接创建一个全局变量，共享不同模块对loading的访问。确实，这可以解决重复创建的问题，但假设我们某些页面根本就不需要loading效果，那么这个对象就是多余的。这时候，我们可以通过惰性单例的特性来延迟创建。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> createLoading = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> loading;</div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> loading || ...(这里是第一段函数的逻辑)</div><div class="line">	&#125;</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
+<p>由于闭包的对变量周期的延迟，我们在任一上下文环境下调用<code>var loading = createLoading()</code>至多只会创建一个loading对象，并且只会在需要调用的时候才会创建。</p>
+<p>对于问题2，则很好应付，我们可以重新对show和hide方法进行包装，让其在执行之前先判断loading的状态。方法类似上面Ajax和AsyncFunctionMaker中的函数包装。</p>
+<blockquote>
+<p>典型的单例包装函数</p>
+</blockquote>
+<p>最后，由于在JavaScript，每一个函数都是一级公民，因此我们可以把函数当做变量使用（事实上上面提供的实例的回调就是这种做法），我们可以建立一个单例模式通用包装器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> singleton = <span class="function"><span class="keyword">function</span>(<span class="params"> fn </span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> result;</div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> result || (result = fn .apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>));</div><div class="line">	&#125;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> createLoading = singleton(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> LOADING_TPL = <span class="string">'&lt;div id="loading"&gt;&lt;/div&gt;'</span>;</div><div class="line">	<span class="keyword">var</span> loading = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</div><div class="line">	loading.innerText = LOADING_TPL;</div><div class="line">	<span class="keyword">return</span> <span class="built_in">document</span>.body.appendChild(loading);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="典型应用场景"><a href="#典型应用场景" class="headerlink" title="典型应用场景"></a>典型应用场景</h4><ul>
+<li><p>惰性单例：在合适的时候才创建对象，如缓存对象等。</p>
+</li>
+<li><p>单例服务：Angular 1.x 的服务实例</p>
+</li>
+<li><p>单例组件：全局唯一的遮罩层、弹窗等</p>
+</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>单例模式能够我们能在全局的上下文环境下获取唯一的对象，这种特性适用于多次调用的对象。JavaScript的单例模式天生就与闭包撇不清关系，借助闭包对变量周期的“延期”而暂存某些状态，从而保证单例的唯一性。</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="http://www.jb51.net/article/78300.htm" target="_blank" rel="external">学习JavaScript设计模式之单例模式</a></p>
+<p><a href="https://github.com/x-cold/angular-weui/blob/master/src/js/services/toast.js" target="_blank" rel="external">AngularJs封装Toast服务</a></p>
+<p>《Javascript Design Patterns》</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/30/docker/ddocker-leaning-image/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker大行其道—镜像</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style" style="margin-left: 2em">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a>
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="javascript/pattern/singleton" data-title="Javascript 设计模式之单例模式" data-url="http://blog.lxstart.net/2016/08/04/javascript/pattern/singleton/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"x-cold"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小冷
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
